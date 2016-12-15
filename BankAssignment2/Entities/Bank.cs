@@ -17,13 +17,12 @@ namespace BankAssignment2.Entities
 
         public void moveCash(decimal amount, int accountSourceNumber, int accountTargetNumber)
         {        
-            // You cannot move to your own account
-            Contract.Requires(accountSourceNumber != accountTargetNumber); 
-       
-            
+            // You cannot move to your own account.
+            Contract.Requires(accountSourceNumber != accountTargetNumber);     
             Account accountSource = account.Find(x => x.Number.Equals(accountSourceNumber));
             Account accountTarget = account.Find(x => x.Number.Equals(accountTargetNumber));
             decimal TestBalance = accountSource.Balance - amount;
+            // can only transfer is balance minus the amount is above zero.
             Contract.Requires(TestBalance > 0, "Balance cannot go below zero");
 
             accountSource.AddTransaction(amount * -1);
